@@ -82,6 +82,35 @@ class User implements UserInterface
     }
 
     /**
+     * @param string $role
+     * @return User
+     */
+    public function addRole(string $role): self
+    {
+        $this->roles[] = $role;
+        return array_unique($this->roles);
+    }
+
+    /**
+     * @param string $role
+     * @return User
+     */
+    public function removeRole(string $role): self
+    {
+        $this->roles[] = array_values(array_diff($this->roles, [$role]));
+        return array_unique($this->roles);
+    }
+
+    /**
+     * @param string $role
+     * @return bool
+     */
+    public function hasRole(string $role): bool
+    {
+        return in_array($role, $this->roles);
+    }
+
+    /**
      * @see UserInterface
      */
     public function getPassword(): string
